@@ -21,5 +21,11 @@ app.use("/api/posts", postRoutes);
 
 
 app.listen(3001, () => {
- console.log('app connected')
+db.connect((err) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+    console.log('Database connected')
+  })
 });
