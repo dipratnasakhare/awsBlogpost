@@ -3,6 +3,7 @@ import authRoutes from "./Routes/auth.js";
 import userRoutes from "./Routes/users.js";
 import postRoutes from "./Routes/posts.js";
 import cors from "cors";
+import { db } from "./db.js"
 
 const app = express();
 
@@ -20,5 +21,11 @@ app.use("/api/posts", postRoutes);
 
 
 app.listen(3001, () => {
+  db.connect((err) => {
+    if (err) {
+      console.log(err)
+      return
+    }
     console.log('Database connected')
+  })
 });
