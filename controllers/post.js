@@ -1,19 +1,19 @@
 import { db } from "../db.js";
-import jwt from "jsonwebtoken";
 
 export const getPosts = (req, res) => {
-  const q = req.query.cat
-  ? "SELECT * FROM posts WHERE cat=?"
-  : "SELECT * FROM posts";
+  
+  const q = "SELECT * FROM posts";
 
-db.query(q, [req.query.cat], (err, data) => {
+db.query(q , (err, data) => {
   if (err) return res.status(500).send(err);
-
+  
+  console.log(data.length)
   return res.status(200).json(data);
 });
 };
 
 export const getPost = (req, res) => {
+
   const q =
     "SELECT p.id, `username`, `title`, `desc`,`date` FROM users u JOIN posts p ON u.id = p.uid WHERE p.id = ? ";
   db.query(q, [req.params.id], (err, data) => {
@@ -35,7 +35,7 @@ export const addPost = (req, res) => {
     ];
 
     db.query(q, [values], (err, data) => {
-      // if (err) return res.status(500).json(err);
+      if (err) return res.status(500).json(err);
       return res.json("Post has been created.");
     });
 };
@@ -43,8 +43,6 @@ export const addPost = (req, res) => {
 
 
 export const deletePost = (req, res) => {
-
-  console.log(req.body.answer)
 
     const postId = req.params.id;
     const uid = req.body.answer
@@ -58,7 +56,6 @@ export const deletePost = (req, res) => {
 };
 
 export const updatePost = (req, res) => {
-  
 
     const postId = req.body.id;
     const uid = req.body.uid.id
