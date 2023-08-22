@@ -11,7 +11,7 @@ app.use(express.json());
 
 
 app.get("/api/get", function (req, res) {
-  res.status(200).json({msg:"success"});
+  res.status(200).json({msg:"welcome to backend"});
 });
 
 app.use("/api/auth", authRoutes);
